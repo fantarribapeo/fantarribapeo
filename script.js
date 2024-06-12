@@ -81,7 +81,7 @@ function loadNazionali() {
 
                 cellExpand.innerHTML = '<button class="toggle" onclick="toggleDetail(this)"><img src="expand_gray.png"></button>';
 				cellExpand.classList.add('expander');
-				cellBandiera.innerHTML = `<img class="flag" src="flags/${nazionale.flag}" alt="${nazionale.name}">`;
+				cellBandiera.innerHTML = `<img class="flag" src="${nazionale.flag}" alt="${nazionale.name}">`;
 				cellBandiera.classList.add('flag');
 				cellNazionale.innerHTML = nazionale.name;
                 cellPunteggio.textContent = nazionale.score;
@@ -162,7 +162,7 @@ function loadTeams() {
                                                             return `
                                                                 <tr>
                                                                     <td></td>
-                                                                    <td class="detailflag"><img src="flags/${nazionale.flag}" alt="${nazionale.name} flag" class="flag"></td>
+                                                                    <td class="detailflag"><img src="${nazionale.flag}" alt="${nazionale.name} flag" class="flag"></td>
                                                                     <td>${nazionale.name}</td>
                                                                     <td class="numeric">${nazionale.score}</td>
                                                                 </tr>`;
@@ -209,7 +209,7 @@ function loadListone() {
                 let cellNazionale = row.insertCell(1);
                 let cellValore = row.insertCell(2);
 
-                cellBandiera.innerHTML = `<img class="flag" src="flags/${nazionale.flag}" alt="${nazionale.name}">`;
+                cellBandiera.innerHTML = `<img class="flag" src="${nazionale.flag}" alt="${nazionale.name}">`;
 				cellBandiera.classList.add('flag');
 				cellNazionale.innerHTML = nazionale.name;
                 cellValore.textContent = nazionale.valore;
