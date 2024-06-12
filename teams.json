@@ -1,0 +1,16 @@
+[
+    {
+        "player": "Player1",
+        "nazionale_1": "INGHILTERRA",
+        "nazionale_2": "GERMANIA",
+        "nazionale_3": "FRANCIA",
+        "nazionale_4": "PORTOGALLO"
+    },
+	{
+        "player": "Player2",
+        "nazionale_1": "ALBANIA",
+        "nazionale_2": "SPAGNA",
+        "nazionale_3": "SLOVENIA",
+        "nazionale_4": "UCRAINA"
+    }
+]

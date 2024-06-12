@@ -1,20 +1,14 @@
+let moltiplicatori = {};
+let nazionali = [];
+
 document.addEventListener('DOMContentLoaded', function() {
-	calcolaPunteggi();
-    loadTeams();
-    loadNazionali();
-    loadMoltiplicatori();
 	loadListone();
+    loadMoltiplicatori();
+	loadNazionaliAndCalculateScores();
+    loadNazionali();
+    loadTeams();
 	document.querySelector('.tablink').click();
 });
-
-function calcolaPunteggi(){
-    fetch('backend.php?action=calcolaPunteggi')
-        .then(response => response.json())
-		.then(data => {
-            console.log('Punteggi calcolati:', data);
-        })
-        .catch(error => console.error('Errore nel calcolo dei punteggi:', error));
-}
 
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
@@ -30,57 +24,59 @@ function openTab(evt, tabName) {
 	evt.currentTarget.classList.replace('unselected','selected');
 }
 
-function loadTeams() {
-    fetch('backend.php?data=teams')
+// Funzione per caricare i dati delle nazionali e calcolare i punteggi
+function loadNazionaliAndCalculateScores() {
+    fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
-            let table = document.getElementById('teamsTable').getElementsByTagName('tbody')[0];
-            data.forEach(team => {
-                let row = table.insertRow();
-                let cellExpand = row.insertCell(0);
-                let cellGiocatore = row.insertCell(1);
-                let cellPunteggio = row.insertCell(2);
+            // Memorizza i dati delle nazionali nella variabile 'nazionali'
+            nazionali = data;
 
-                cellExpand.innerHTML = '<button onclick="toggleDetail(this)"><img src="expand_gray.png"></button>';
-				cellExpand.classList.add('expander');
-                cellGiocatore.textContent = team.giocatore;
-                cellPunteggio.textContent = team.punteggio;
-				cellPunteggio.classList.add('numeric');
-				
-                let detailRow = table.insertRow();
-                let detailCell = detailRow.insertCell(0);
-                detailCell.colSpan = 4;
-                
-				team.nazionali.sort((a, b) => b.punteggio - a.punteggio);
-                
-				detailCell.innerHTML = `<div class="detail">
-                                            <table class="detailTable">
-                                                ${team.nazionali.map(nazionale => `
-                                                    <tr>
-														<td></td>
-                                                        <td class="detailflag"><img src="flags/${nazionale.bandiera}" alt="${nazionale.nome} flag" class="flag"></td>
-														<td>${nazionale.nome}</td>
-                                                        <td class="numeric">${nazionale.punteggio}</td>
-                                                    </tr>
-                                                `).join('')}
-                                            </table>
-                                        </div>`;
-				detailRow.style.display = "none";
+            // Calcola il punteggio per ogni nazionale
+            nazionali.forEach(nazionale => {
+                let punteggio_nazionale = 0; // Inizializza il punteggio della nazionale
+                Object.entries(nazionale.details).forEach(([key, value]) => {
+                    if (moltiplicatori[key] !== undefined) {
+                        punteggio_nazionale += value * moltiplicatori[key]; // Aggiorna il punteggio della nazionale
+                    }
+                });
+                nazionale.score = punteggio_nazionale; // Assegna il punteggio calcolato alla proprietà 'score' della nazionale
             });
+
+            // Ordina i dati in base a 'score' in ordine decrescente
+            nazionali.sort((a, b) => b.score - a.score);
         });
 }
 
+// Carica Nazionali
 function loadNazionali() {
-    fetch('backend.php?data=nazionali')
+    fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
+			nazionali = data;
             let table = document.getElementById('nazionaliTable').getElementsByTagName('tbody')[0];
-            table.innerHTML = ""; // Clear existing rows
+			
+			// Aggiorna il punteggio della nazionale
             data.forEach(nazionale => {
+				let punteggio_nazionale = 0;
+                Object.entries(nazionale.details).forEach(([key, value]) => {
+                    if (moltiplicatori[key] !== undefined) {
+                        punteggio_nazionale += value * moltiplicatori[key];
+                    }
+                });
+                nazionale.score = punteggio_nazionale;
+			});
+			
+			// Ordina nazionali per punteggio
+			data.sort((a, b) => b.score - a.score);
+			
+			
+			// Carica tabella html
+			data.forEach(nazionale => {
                 let row = table.insertRow();
                 let cellExpand = row.insertCell(0);
                 let cellBandiera = row.insertCell(1);
-				let cellNazionale = row.insertCell(2);
+                let cellNazionale = row.insertCell(2);
                 let cellPunteggio = row.insertCell(3);
 
                 cellExpand.innerHTML = '<button class="toggle" onclick="toggleDetail(this)"><img src="expand_gray.png"></button>';
@@ -90,73 +86,136 @@ function loadNazionali() {
 				cellNazionale.innerHTML = nazionale.name;
                 cellPunteggio.textContent = nazionale.score;
 				cellPunteggio.classList.add('numeric');
-				
-				let detailRow = table.insertRow();
+
+                let detailRow = table.insertRow();
                 let detailCell = detailRow.insertCell(0);
                 detailCell.colSpan = 4;
-				detailCell.innerHTML = `<div class="detail">
-                            <table class="detailTable">
-                                ${Object.entries(nazionale.details).map(([key, value]) => `
-                                    <tr class="${value < 0 ? 'red' : 'green'}">
-										<td></td>
-										<td></td>
-                                        <td>${key}</td>
-                                        <td class="numeric">${value}</td>
-                                    </tr>
-                                `).join('')}
-                            </table>
-                        </div>`;
-
+                detailCell.innerHTML = `<div class="detail">
+                                            <table class="detailTable">
+                                                ${Object.entries(nazionale.details)
+                                                    .filter(([key, value]) => value !== 0)
+                                                    .map(([key, value]) => `
+                                                        <tr class="${moltiplicatori[key] < 0 ? 'red' : 'green'}">
+															<td></td>
+															<td></td>
+                                                            <td>${key}</td>
+                                                            <td class="numeric">${value * moltiplicatori[key]}</td>
+                                                        </tr>
+                                                `).join('')}
+                                            </table>
+                                        </div>`;
                 detailRow.style.display = "none";
             });
-        })
-        .catch(error => {
-            console.error('Error:', error);
         });
 }
 
-function loadMoltiplicatori() {
-    fetch('backend.php?data=moltiplicatori')
+// Carica Teams
+function loadTeams() {
+    fetch('teams.json')
         .then(response => response.json())
         .then(data => {
-            let table = document.getElementById('moltiplicatoriTable').getElementsByTagName('tbody')[0];
-            Object.entries(data[0]).forEach(([key, value]) => {
+            let table = document.getElementById('teamsTable').getElementsByTagName('tbody')[0];
+            
+			// Itera su ogni squadra
+            data.forEach(team => {
+                let punteggio_team = 0; // Inizializza il punteggio totale della squadra
+                
+				// Cerca la nazionale corrispondente nella variabile 'nazionali'
+				let nazionale = nazionali.find(n => n.name === team.nazionale_1);
+				if (nazionale) { punteggio_team += nazionale.score;	}
+				nazionale = nazionali.find(n => n.name === team.nazionale_2);
+				if (nazionale) { punteggio_team += nazionale.score;	}
+				nazionale = nazionali.find(n => n.name === team.nazionale_3);
+				if (nazionale) { punteggio_team += nazionale.score;	}
+				nazionale = nazionali.find(n => n.name === team.nazionale_4);
+				if (nazionale) { punteggio_team += nazionale.score;	}
+					
+                // Assegna il punteggio totale calcolato alla proprietà 'punteggio_team' della squadra
+                team.score = punteggio_team;
+			});
+			
+			// Ordina team per punteggio
+			data.sort((a, b) => b.score - a.score);
+			
+			// Carica tabella html			
+			data.forEach(team => {
                 let row = table.insertRow();
-				row.classList.add(value<0?'red':'green');
-                let cellEvento = row.insertCell(0);
-                let cellMoltiplicatore = row.insertCell(1);
+                let cellExpand = row.insertCell(0);
+                let cellGiocatore = row.insertCell(1);
+                let cellPunteggio = row.insertCell(2);
 
-                cellEvento.textContent = key;
-                cellMoltiplicatore.textContent = value;
-				cellMoltiplicatore.classList.add('numeric');
-				
+                cellExpand.innerHTML = '<button onclick="toggleDetail(this)"><img src="expand_gray.png"></button>';
+				cellExpand.classList.add('expander');
+                cellGiocatore.textContent = team.player;
+                cellPunteggio.textContent = team.score;
+				cellPunteggio.classList.add('numeric');
+
+                let detailRow = table.insertRow();
+                let detailCell = detailRow.insertCell(0);
+                detailCell.colSpan = 4;
+                detailCell.innerHTML = `<div class="detail">
+                                            <table class="detailTable">
+                                                ${[team.nazionale_1, team.nazionale_2, team.nazionale_3, team.nazionale_4]
+                                                    .map(nazionaleName => {
+                                                        let nazionale = nazionali.find(n => n.name === nazionaleName);
+                                                        if (nazionale) {
+                                                            return `
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td class="detailflag"><img src="flags/${nazionale.flag}" alt="${nazionale.name} flag" class="flag"></td>
+                                                                    <td>${nazionale.name}</td>
+                                                                    <td class="numeric">${nazionale.score}</td>
+                                                                </tr>`;
+                                                        } else {
+                                                            return '';
+                                                        }
+                                                    }).join('')}
+                                            </table>
+                                        </div>`;
+				detailRow.style.display = "none";
             });
         });
 }
 
+// Carica Moltiplicatori
+function loadMoltiplicatori() {
+    fetch('moltiplicatori.json')
+        .then(response => response.json())
+        .then(data => {
+			moltiplicatori = data;
+            let table = document.getElementById('moltiplicatoriTable').getElementsByTagName('tbody')[0];
+            Object.entries(data).forEach(([key, value]) => {
+                let row = table.insertRow();
+				row.classList.add(value<0?'red':'green');
+                let cellKey = row.insertCell(0);
+                let cellValue = row.insertCell(1);
+
+                cellKey.textContent = key;
+                cellValue.textContent = value;
+				cellValue.classList.add('numeric');
+            });
+        });
+}
+
+// Carica Listone
 function loadListone() {
-    fetch('backend.php?data=listone')
+    fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
             let table = document.getElementById('listoneTable').getElementsByTagName('tbody')[0];
-            table.innerHTML = ""; // Clear existing rows
             data.forEach(nazionale => {
                 let row = table.insertRow();
                 let cellBandiera = row.insertCell(0);
-				let cellNazionale = row.insertCell(1);
+                let cellNazionale = row.insertCell(1);
                 let cellValore = row.insertCell(2);
-				
-				cellBandiera.innerHTML = `<img class="flag" src="flags/${nazionale.flag}" alt="${nazionale.name}">`;
+
+                cellBandiera.innerHTML = `<img class="flag" src="flags/${nazionale.flag}" alt="${nazionale.name}">`;
 				cellBandiera.classList.add('flag');
 				cellNazionale.innerHTML = nazionale.name;
                 cellValore.textContent = nazionale.valore;
 				cellValore.classList.add('numeric');
 				row.classList.add(nazionale.valore%20==0?'even':'odd');
-				
             });
-        })
-        .catch(error => {
-            console.error('Error:', error);
         });
 }
 
