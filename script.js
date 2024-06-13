@@ -105,7 +105,6 @@ function loadNazionali() {
                                             </table>
                                         </div>`;
                 detailRow.style.display = "none";
-				detailCell.style.display = "none";
             });
         });
 }
@@ -174,7 +173,6 @@ function loadTeams() {
                                             </table>
                                         </div>`;
                 detailRow.style.display = "none";
-				detailCell.style.display = "none";
             });
         });
 }
