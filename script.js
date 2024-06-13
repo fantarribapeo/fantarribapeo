@@ -2,12 +2,12 @@ let moltiplicatori = {};
 let nazionali = [];
 
 document.addEventListener('DOMContentLoaded', function() {
-	loadListone();
-    loadMoltiplicatori();
-	loadNazionaliAndCalculateScores();
-    loadNazionali();
-    loadTeams();
-	document.querySelector('.tablink').click();
+    setTimeout(loadListone,200);
+	setTimeout(loadMoltiplicatori,200);
+    setTimeout(loadNazionaliAndCalculateScores,200);
+	setTimeout(loadNazionali,200);
+	setTimeout(loadTeams,200);
+    document.querySelector('.tablink').click();
 });
 
 function openTab(evt, tabName) {
@@ -18,10 +18,10 @@ function openTab(evt, tabName) {
     }
     tablinks = document.getElementsByClassName("tablink");
     for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].classList.replace('selected','unselected');
+        tablinks[i].classList.replace('selected','unselected');
     }
     document.getElementById(tabName).style.display = "block";
-	evt.currentTarget.classList.replace('unselected','selected');
+    evt.currentTarget.classList.replace('unselected','selected');
 }
 
 // Funzione per caricare i dati delle nazionali e calcolare i punteggi
@@ -40,7 +40,7 @@ function loadNazionaliAndCalculateScores() {
                         punteggio_nazionale += value * moltiplicatori[key]; // Aggiorna il punteggio della nazionale
                     }
                 });
-                nazionale.score = punteggio_nazionale; // Assegna il punteggio calcolato alla proprietà 'score' della nazionale
+                nazionale.score = punteggio_nazionale; // Assegna il punteggio calcolato alla proprietÃ  'score' della nazionale
             });
 
             // Ordina i dati in base a 'score' in ordine decrescente
@@ -53,26 +53,26 @@ function loadNazionali() {
     fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
-			nazionali = data;
+            nazionali = data;
             let table = document.getElementById('nazionaliTable').getElementsByTagName('tbody')[0];
-			
-			// Aggiorna il punteggio della nazionale
+            
+            // Aggiorna il punteggio della nazionale
             data.forEach(nazionale => {
-				let punteggio_nazionale = 0;
+                let punteggio_nazionale = 0;
                 Object.entries(nazionale.details).forEach(([key, value]) => {
                     if (moltiplicatori[key] !== undefined) {
                         punteggio_nazionale += value * moltiplicatori[key];
                     }
                 });
                 nazionale.score = punteggio_nazionale;
-			});
-			
-			// Ordina nazionali per punteggio
-			data.sort((a, b) => b.score - a.score);
-			
-			
-			// Carica tabella html
-			data.forEach(nazionale => {
+            });
+            
+            // Ordina nazionali per punteggio
+            data.sort((a, b) => b.score - a.score);
+            
+            
+            // Carica tabella html
+            data.forEach(nazionale => {
                 let row = table.insertRow();
                 let cellExpand = row.insertCell(0);
                 let cellBandiera = row.insertCell(1);
@@ -80,12 +80,12 @@ function loadNazionali() {
                 let cellPunteggio = row.insertCell(3);
 
                 cellExpand.innerHTML = '<button class="toggle" onclick="toggleDetail(this)"><img src="expand_gray.png"></button>';
-				cellExpand.classList.add('expander');
-				cellBandiera.innerHTML = `<img class="flag" src="${nazionale.flag}" alt="${nazionale.name}">`;
-				cellBandiera.classList.add('flag');
-				cellNazionale.innerHTML = nazionale.name;
+                cellExpand.classList.add('expander');
+                cellBandiera.innerHTML = `<img class="flag" src="${nazionale.flag}" alt="${nazionale.name}">`;
+                cellBandiera.classList.add('flag');
+                cellNazionale.innerHTML = nazionale.name;
                 cellPunteggio.textContent = nazionale.score;
-				cellPunteggio.classList.add('numeric');
+                cellPunteggio.classList.add('numeric');
 
                 let detailRow = table.insertRow();
                 let detailCell = detailRow.insertCell(0);
@@ -96,8 +96,8 @@ function loadNazionali() {
                                                     .filter(([key, value]) => value !== 0)
                                                     .map(([key, value]) => `
                                                         <tr class="${moltiplicatori[key] < 0 ? 'red' : 'green'}">
-															<td></td>
-															<td></td>
+                                                            <td></td>
+                                                            <td></td>
                                                             <td>${key}</td>
                                                             <td class="numeric">${value * moltiplicatori[key]}</td>
                                                         </tr>
@@ -116,39 +116,39 @@ function loadTeams() {
         .then(data => {
             let table = document.getElementById('teamsTable').getElementsByTagName('tbody')[0];
             
-			// Itera su ogni squadra
+            // Itera su ogni squadra
             data.forEach(team => {
                 let punteggio_team = 0; // Inizializza il punteggio totale della squadra
                 
-				// Cerca la nazionale corrispondente nella variabile 'nazionali'
-				let nazionale = nazionali.find(n => n.name === team.nazionale_1);
-				if (nazionale) { punteggio_team += nazionale.score;	}
-				nazionale = nazionali.find(n => n.name === team.nazionale_2);
-				if (nazionale) { punteggio_team += nazionale.score;	}
-				nazionale = nazionali.find(n => n.name === team.nazionale_3);
-				if (nazionale) { punteggio_team += nazionale.score;	}
-				nazionale = nazionali.find(n => n.name === team.nazionale_4);
-				if (nazionale) { punteggio_team += nazionale.score;	}
-					
-                // Assegna il punteggio totale calcolato alla proprietà 'punteggio_team' della squadra
+                // Cerca la nazionale corrispondente nella variabile 'nazionali'
+                let nazionale = nazionali.find(n => n.name === team.nazionale_1);
+                if (nazionale) { punteggio_team += nazionale.score;    }
+                nazionale = nazionali.find(n => n.name === team.nazionale_2);
+                if (nazionale) { punteggio_team += nazionale.score;    }
+                nazionale = nazionali.find(n => n.name === team.nazionale_3);
+                if (nazionale) { punteggio_team += nazionale.score;    }
+                nazionale = nazionali.find(n => n.name === team.nazionale_4);
+                if (nazionale) { punteggio_team += nazionale.score;    }
+                    
+                // Assegna il punteggio totale calcolato alla proprietÃ  'punteggio_team' della squadra
                 team.score = punteggio_team;
-			});
-			
-			// Ordina team per punteggio
-			data.sort((a, b) => b.score - a.score);
-			
-			// Carica tabella html			
-			data.forEach(team => {
+            });
+            
+            // Ordina team per punteggio
+            data.sort((a, b) => b.score - a.score);
+            
+            // Carica tabella html            
+            data.forEach(team => {
                 let row = table.insertRow();
                 let cellExpand = row.insertCell(0);
                 let cellGiocatore = row.insertCell(1);
                 let cellPunteggio = row.insertCell(2);
 
                 cellExpand.innerHTML = '<button onclick="toggleDetail(this)"><img src="expand_gray.png"></button>';
-				cellExpand.classList.add('expander');
+                cellExpand.classList.add('expander');
                 cellGiocatore.textContent = team.player;
                 cellPunteggio.textContent = team.score;
-				cellPunteggio.classList.add('numeric');
+                cellPunteggio.classList.add('numeric');
 
                 let detailRow = table.insertRow();
                 let detailCell = detailRow.insertCell(0);
@@ -172,7 +172,7 @@ function loadTeams() {
                                                     }).join('')}
                                             </table>
                                         </div>`;
-				detailRow.style.display = "none";
+                detailRow.style.display = "none";
             });
         });
 }
@@ -182,17 +182,17 @@ function loadMoltiplicatori() {
     fetch('moltiplicatori.json')
         .then(response => response.json())
         .then(data => {
-			moltiplicatori = data;
+            moltiplicatori = data;
             let table = document.getElementById('moltiplicatoriTable').getElementsByTagName('tbody')[0];
             Object.entries(data).forEach(([key, value]) => {
                 let row = table.insertRow();
-				row.classList.add(value<0?'red':'green');
+                row.classList.add(value<0?'red':'green');
                 let cellKey = row.insertCell(0);
                 let cellValue = row.insertCell(1);
 
                 cellKey.textContent = key;
                 cellValue.textContent = value;
-				cellValue.classList.add('numeric');
+                cellValue.classList.add('numeric');
             });
         });
 }
@@ -210,11 +210,11 @@ function loadListone() {
                 let cellValore = row.insertCell(2);
 
                 cellBandiera.innerHTML = `<img class="flag" src="${nazionale.flag}" alt="${nazionale.name}">`;
-				cellBandiera.classList.add('flag');
-				cellNazionale.innerHTML = nazionale.name;
+                cellBandiera.classList.add('flag');
+                cellNazionale.innerHTML = nazionale.name;
                 cellValore.textContent = nazionale.valore;
-				cellValore.classList.add('numeric');
-				row.classList.add(nazionale.valore%20==0?'even':'odd');
+                cellValore.classList.add('numeric');
+                row.classList.add(nazionale.valore%20==0?'even':'odd');
             });
         });
 }
@@ -222,7 +222,7 @@ function loadListone() {
 function toggleDetail(button) {
     let detailRow = button.parentElement.parentElement.nextElementSibling;
     let detailDiv = detailRow.querySelector('.detail');
-	if (detailDiv.style.display === "none") {
+    if (detailDiv.style.display === "none") {
         detailDiv.style.display = "block";
         detailRow.style.display = "table-row";
         button.innerHTML = '<img src="reduce_gray.png">';
