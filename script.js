@@ -3,10 +3,9 @@ let nazionali = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(loadListone,200);
-	setTimeout(loadMoltiplicatori,200);
-    setTimeout(loadNazionaliAndCalculateScores,200);
-	setTimeout(loadNazionali,200);
-	setTimeout(loadTeams,200);
+    setTimeout(loadMoltiplicatori,200);
+    setTimeout(loadNazionali,200);
+    setTimeout(loadTeams,400);
     document.querySelector('.tablink').click();
 });
 
@@ -22,30 +21,6 @@ function openTab(evt, tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.classList.replace('unselected','selected');
-}
-
-// Funzione per caricare i dati delle nazionali e calcolare i punteggi
-function loadNazionaliAndCalculateScores() {
-    fetch('nazionali.json')
-        .then(response => response.json())
-        .then(data => {
-            // Memorizza i dati delle nazionali nella variabile 'nazionali'
-            nazionali = data;
-
-            // Calcola il punteggio per ogni nazionale
-            nazionali.forEach(nazionale => {
-                let punteggio_nazionale = 0; // Inizializza il punteggio della nazionale
-                Object.entries(nazionale.details).forEach(([key, value]) => {
-                    if (moltiplicatori[key] !== undefined) {
-                        punteggio_nazionale += value * moltiplicatori[key]; // Aggiorna il punteggio della nazionale
-                    }
-                });
-                nazionale.score = punteggio_nazionale; // Assegna il punteggio calcolato alla proprietà 'score' della nazionale
-            });
-
-            // Ordina i dati in base a 'score' in ordine decrescente
-            nazionali.sort((a, b) => b.score - a.score);
-        });
 }
 
 // Carica Nazionali
