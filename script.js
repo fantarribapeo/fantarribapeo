@@ -2,29 +2,46 @@ let moltiplicatori = {};
 let nazionali = [];
 
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(loadListone,200);
-    setTimeout(loadMoltiplicatori,200);
-    setTimeout(loadNazionali,200);
-    setTimeout(loadTeams,400);
-    document.querySelector('.tablink').click();
-});
+    
+    // Carica Listone
+    fetch('nazionali.json')
+        .then(response => response.json())
+        .then(data => {
+            let table = document.getElementById('listoneTable').getElementsByTagName('tbody')[0];
+            data.forEach(nazionale => {
+                let row = table.insertRow();
+                let cellBandiera = row.insertCell(0);
+                let cellNazionale = row.insertCell(1);
+                let cellValore = row.insertCell(2);
 
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.replace('selected','unselected');
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.classList.replace('unselected','selected');
-}
+                cellBandiera.innerHTML = `<img class="flag" src="${nazionale.flag}" alt="${nazionale.name}">`;
+                cellBandiera.classList.add('flag');
+                cellNazionale.innerHTML = nazionale.name;
+                cellValore.textContent = nazionale.valore;
+                cellValore.classList.add('numeric');
+                row.classList.add(nazionale.valore%20==0?'even':'odd');
+            });
+        });
 
-// Carica Nazionali
-function loadNazionali() {
+    // Carica Moltiplicatori
+    fetch('moltiplicatori.json')
+        .then(response => response.json())
+        .then(data => {
+            moltiplicatori = data;
+            let table = document.getElementById('moltiplicatoriTable').getElementsByTagName('tbody')[0];
+            Object.entries(data).forEach(([key, value]) => {
+                let row = table.insertRow();
+                row.classList.add(value<0?'red':'green');
+                let cellKey = row.insertCell(0);
+                let cellValue = row.insertCell(1);
+
+                cellKey.textContent = key;
+                cellValue.textContent = value;
+                cellValue.classList.add('numeric');
+            });
+        });
+
+    // Carica Nazionali
     fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
@@ -82,10 +99,8 @@ function loadNazionali() {
                 detailRow.style.display = "none";
             });
         });
-}
 
-// Carica Teams
-function loadTeams() {
+    // Carica Teams
     fetch('teams.json')
         .then(response => response.json())
         .then(data => {
@@ -150,48 +165,23 @@ function loadTeams() {
                 detailRow.style.display = "none";
             });
         });
-}
 
-// Carica Moltiplicatori
-function loadMoltiplicatori() {
-    fetch('moltiplicatori.json')
-        .then(response => response.json())
-        .then(data => {
-            moltiplicatori = data;
-            let table = document.getElementById('moltiplicatoriTable').getElementsByTagName('tbody')[0];
-            Object.entries(data).forEach(([key, value]) => {
-                let row = table.insertRow();
-                row.classList.add(value<0?'red':'green');
-                let cellKey = row.insertCell(0);
-                let cellValue = row.insertCell(1);
+    // Seleziona primo Tab
+    document.querySelector('.tablink').click();
+});
 
-                cellKey.textContent = key;
-                cellValue.textContent = value;
-                cellValue.classList.add('numeric');
-            });
-        });
-}
-
-// Carica Listone
-function loadListone() {
-    fetch('nazionali.json')
-        .then(response => response.json())
-        .then(data => {
-            let table = document.getElementById('listoneTable').getElementsByTagName('tbody')[0];
-            data.forEach(nazionale => {
-                let row = table.insertRow();
-                let cellBandiera = row.insertCell(0);
-                let cellNazionale = row.insertCell(1);
-                let cellValore = row.insertCell(2);
-
-                cellBandiera.innerHTML = `<img class="flag" src="${nazionale.flag}" alt="${nazionale.name}">`;
-                cellBandiera.classList.add('flag');
-                cellNazionale.innerHTML = nazionale.name;
-                cellValore.textContent = nazionale.valore;
-                cellValore.classList.add('numeric');
-                row.classList.add(nazionale.valore%20==0?'even':'odd');
-            });
-        });
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.replace('selected','unselected');
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.replace('unselected','selected');
 }
 
 function toggleDetail(button) {
