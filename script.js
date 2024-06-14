@@ -4,7 +4,7 @@ let nazionali = [];
 document.addEventListener('DOMContentLoaded', function() {
     
     // Carica Listone
-    fetch('nazionali.json')
+    await fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
             nazionali = data;
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     // Carica Moltiplicatori
-    fetch('moltiplicatori.json')
+    await fetch('moltiplicatori.json')
         .then(response => response.json())
         .then(data => {
             moltiplicatori = data;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     // Carica Nazionali
-    fetch('nazionali.json')
+    await fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
             let table = document.getElementById('nazionaliTable').getElementsByTagName('tbody')[0];
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     // Carica Teams
-    fetch('teams.json')
+    await fetch('teams.json')
         .then(response => response.json())
         .then(data => {
             let table = document.getElementById('teamsTable').getElementsByTagName('tbody')[0];
