@@ -70,11 +70,25 @@
     "nazionale_4": "ROMANIA"
   },
   {
+    "player": "GIORGIO",
+    "nazionale_1": "ITALIA",
+    "nazionale_2": "PORTOGALLO",
+    "nazionale_3": "ROMANIA",
+    "nazionale_4": "SLOVACCHIA"
+  },
+  {
     "player": "ALESSANDRO",
     "nazionale_1": "INGHILTERRA",
     "nazionale_2": "TURCHIA",
     "nazionale_3": "REPUBBLICA CECA",
     "nazionale_4": "GEORGIA"
+  },
+  {
+    "player": "SERENA",
+    "nazionale_1": "FRANCIA",
+    "nazionale_2": "CROAZIA",
+    "nazionale_3": "AUSTRIA",
+    "nazionale_4": "ALBANIA"
   },
   {
     "player": "EDOARDO",
@@ -124,5 +138,12 @@
     "nazionale_2": "CROAZIA",
     "nazionale_3": "AUSTRIA",
     "nazionale_4": "SLOVENIA"
+  },
+  {
+    "player": "EZIO",
+    "nazionale_1": "FRANCIA",
+    "nazionale_2": "UNGHERIA",
+    "nazionale_3": "SCOZIA",
+    "nazionale_4": "ALBANIA"
   }
 ]
