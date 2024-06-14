@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let detailRow = table.insertRow();
                 let detailCell = detailRow.insertCell(0);
                 detailCell.colSpan = 4;
-                detailCell.innerHTML = `<div class="detail">
+                detailCell.innerHTML = `<div class="detail" style="display: none;">
                                             <table class="detailTable">
                                                 ${Object.entries(nazionale.details)
                                                     .filter(([key, value]) => value !== 0)
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let detailRow = table.insertRow();
                 let detailCell = detailRow.insertCell(0);
                 detailCell.colSpan = 4;
-                detailCell.innerHTML = `<div class="detail">
+                detailCell.innerHTML = `<div class="detail" style="display: none;">
                                             <table class="detailTable">
                                                 ${[team.nazionale_1, team.nazionale_2, team.nazionale_3, team.nazionale_4]
                                                     .map(nazionaleName => {
