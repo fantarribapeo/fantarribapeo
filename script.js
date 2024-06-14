@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
-            nazionali = data;
             let table = document.getElementById('listoneTable').getElementsByTagName('tbody')[0];
             data.forEach(nazionale => {
                 let row = table.insertRow();
@@ -46,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
+            nazionali = data;
             let table = document.getElementById('nazionaliTable').getElementsByTagName('tbody')[0];
             
             // Aggiorna il punteggio della nazionale
