@@ -1,16 +1,128 @@
 [
-    {
-        "player": "Player1",
-        "nazionale_1": "INGHILTERRA",
-        "nazionale_2": "GERMANIA",
-        "nazionale_3": "FRANCIA",
-        "nazionale_4": "PORTOGALLO"
-    },
-	{
-        "player": "Player2",
-        "nazionale_1": "ALBANIA",
-        "nazionale_2": "SPAGNA",
-        "nazionale_3": "SLOVENIA",
-        "nazionale_4": "UCRAINA"
-    }
+  {
+    "player": "ROBBY",
+    "nazionale_1": "INGHILTERRA",
+    "nazionale_2": "SERBIA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "ROMANIA"
+  },
+  {
+    "player": "LUCA",
+    "nazionale_1": "INGHILTERRA",
+    "nazionale_2": "POLONIA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "ROMANIA"
+  },
+  {
+    "player": "CIRO",
+    "nazionale_1": "PORTOGALLO",
+    "nazionale_2": "SPAGNA",
+    "nazionale_3": "GEORGIA",
+    "nazionale_4": "SLOVACCHIA"
+  },
+  {
+    "player": "STEFANINO",
+    "nazionale_1": "INGHILTERRA",
+    "nazionale_2": "CROAZIA",
+    "nazionale_3": "GEORGIA",
+    "nazionale_4": "SLOVENIA"
+  },
+  {
+    "player": "ALESSANDRA",
+    "nazionale_1": "PORTOGALLO",
+    "nazionale_2": "SPAGNA",
+    "nazionale_3": "AUSTRIA",
+    "nazionale_4": "SLOVACCHIA"
+  },
+  {
+    "player": "ROSALBA",
+    "nazionale_1": "INGHILTERRA",
+    "nazionale_2": "UCRAINA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "AUSTRIA"
+  },
+  {
+    "player": "MARCO",
+    "nazionale_1": "FRANCIA",
+    "nazionale_2": "SERBIA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "SLOVACCHIA"
+  },
+  {
+    "player": "CARLO",
+    "nazionale_1": "FRANCIA",
+    "nazionale_2": "SERBIA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "AUSTRIA"
+  },
+  {
+    "player": "FRANCESCO",
+    "nazionale_1": "GERMANIA",
+    "nazionale_2": "SERBIA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "ROMANIA"
+  },
+  {
+    "player": "MICHELE",
+    "nazionale_1": "FRANCIA",
+    "nazionale_2": "SERBIA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "ROMANIA"
+  },
+  {
+    "player": "ALESSANDRO",
+    "nazionale_1": "INGHILTERRA",
+    "nazionale_2": "TURCHIA",
+    "nazionale_3": "REPUBBLICA CECA",
+    "nazionale_4": "GEORGIA"
+  },
+  {
+    "player": "EDOARDO",
+    "nazionale_1": "ITALIA",
+    "nazionale_2": "CROAZIA",
+    "nazionale_3": "SERBIA",
+    "nazionale_4": "SLOVENIA"
+  },
+  {
+    "player": "ANDREA",
+    "nazionale_1": "ITALIA",
+    "nazionale_2": "PORTOGALLO",
+    "nazionale_3": "AUSTRIA",
+    "nazionale_4": "ROMANIA"
+  },
+  {
+    "player": "MORENO",
+    "nazionale_1": "SPAGNA",
+    "nazionale_2": "DANIMARCA",
+    "nazionale_3": "POLONIA",
+    "nazionale_4": "SLOVACCHIA"
+  },
+  {
+    "player": "STEFANO",
+    "nazionale_1": "PORTOGALLO",
+    "nazionale_2": "CROAZIA",
+    "nazionale_3": "UNGHERIA",
+    "nazionale_4": "AUSTRIA"
+  },
+  {
+    "player": "EMANUELE",
+    "nazionale_1": "INGHILTERRA",
+    "nazionale_2": "SERBIA",
+    "nazionale_3": "ROMANIA",
+    "nazionale_4": "SLOVACCHIA"
+  },
+  {
+    "player": "AGOSTINO",
+    "nazionale_1": "PORTOGALLO",
+    "nazionale_2": "SVIZZERA",
+    "nazionale_3": "TURCHIA",
+    "nazionale_4": "SLOVENIA"
+  },
+  {
+    "player": "PALOA",
+    "nazionale_1": "FRANCIA",
+    "nazionale_2": "CROAZIA",
+    "nazionale_3": "AUSTRIA",
+    "nazionale_4": "SLOVENIA"
+  }
 ]
