@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
             nazionali = data;
             let table = document.getElementById('listoneTable').getElementsByTagName('tbody')[0];
             data.forEach(nazionale => {
-                nazionale.score = 0;
                 let row = table.insertRow();
                 let cellBandiera = row.insertCell(0);
                 let cellNazionale = row.insertCell(1);
