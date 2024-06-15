@@ -3,8 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.tablink').click();
 });
 
+// Funzione per ottenere un timestamp univoco
+function getUniqueParam() {
+    return `?_=${new Date().getTime()}`;
+}
 
-    // Carica Listone
+// Carica Listone
+function loadListone(){
     fetch('nazionali.json')
         .then(response => response.json())
         .then(data => {
@@ -23,10 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 row.classList.add(nazionale.valore%20==0?'even':'odd');
             });
         });
+}
 
 // Carica Moltiplicatori
 async function loadMoltiplicatori() {
-    const response = await fetch('moltiplicatori.json');
+    const response = await fetch(`moltiplicatori.json${getUniqueParam()}`);
+    //const response = await fetch('moltiplicatori.json');
     const data = await response.json();
     
     const moltiplicatori = {}; // Popola l'oggetto moltiplicatori
@@ -50,7 +57,8 @@ async function loadMoltiplicatori() {
 
 // Carica Nazionali
 async function loadNazionali(moltiplicatori) {
-    const response = await fetch('nazionali.json');
+    const response = await fetch(`nazionali.json${getUniqueParam()}`);
+    //const response = await fetch('nazionali.json');
     const data = await response.json();
     
     let table = document.getElementById('nazionaliTable').getElementsByTagName('tbody')[0];
@@ -111,7 +119,8 @@ async function loadNazionali(moltiplicatori) {
 
 // Carica Teams
 async function loadTeams(nazionali) {
-    const response = await fetch('teams.json');
+    const response = await fetch(`teams.json${getUniqueParam()}`);
+    //const response = await fetch('teams.json');
     const data = await response.json();
 	
     let table = document.getElementById('teamsTable').getElementsByTagName('tbody')[0];
@@ -208,7 +217,7 @@ async function init() {
     const moltiplicatori = await loadMoltiplicatori();
     const nazionali = await loadNazionali(moltiplicatori);
     await loadTeams(nazionali);
-	loadListone();
+    loadListone();
 }
 
 // Chiama la funzione init al caricamento della pagina
