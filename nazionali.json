@@ -240,7 +240,7 @@
       "Inno Sbagliato": 0,
       "Invasione di Campo": 1,
       "Invasione di Campo Nudo": 0,
-      "Rimonta Fatta e Vince (nei 120 minuti)": 0,
+      "Rimonta Fatta e Vince (nei 120 minuti)": 1,
       "Rimonta Subita e Perde (nei 120 minuti)": 0
     }
   },
@@ -661,7 +661,7 @@
       "Invasione di Campo": 1,
       "Invasione di Campo Nudo": 0,
       "Rimonta Fatta e Vince (nei 120 minuti)": 0,
-      "Rimonta Subita e Perde (nei 120 minuti)": 0
+      "Rimonta Subita e Perde (nei 120 minuti)": 1
     }
   },
   {
