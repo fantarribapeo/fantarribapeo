@@ -5,7 +5,7 @@
     "flag": "icons8-inghilterra-30.png",
     "details": {
       "Vince Partita (nei 120 minuti)": 1,
-      "Pareggia Partita (nei 120 minuti)": 1,
+      "Pareggia Partita (nei 120 minuti)": 2,
       "Perde Partita (nei 120 minuti)": 0,
       "Passaggio Girone": 0,
       "Passaggio Girone Come Prima": 0,
@@ -355,7 +355,7 @@
     "flag": "icons8-danimarca-30.png",
     "details": {
       "Vince Partita (nei 120 minuti)": 0,
-      "Pareggia Partita (nei 120 minuti)": 2,
+      "Pareggia Partita (nei 120 minuti)": 3,
       "Perde Partita (nei 120 minuti)": 0,
       "Passaggio Girone": 0,
       "Passaggio Girone Come Prima": 0,
@@ -565,7 +565,7 @@
     "flag": "icons8-serbia-30.png",
     "details": {
       "Vince Partita (nei 120 minuti)": 0,
-      "Pareggia Partita (nei 120 minuti)": 1,
+      "Pareggia Partita (nei 120 minuti)": 2,
       "Perde Partita (nei 120 minuti)": 1,
       "Passaggio Girone": 0,
       "Passaggio Girone Come Prima": 0,
@@ -775,7 +775,7 @@
     "flag": "icons8-slovenia-30.png",
     "details": {
       "Vince Partita (nei 120 minuti)": 0,
-      "Pareggia Partita (nei 120 minuti)": 2,
+      "Pareggia Partita (nei 120 minuti)": 3,
       "Perde Partita (nei 120 minuti)": 0,
       "Passaggio Girone": 0,
       "Passaggio Girone Come Prima": 0,
